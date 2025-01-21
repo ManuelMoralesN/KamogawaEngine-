@@ -418,11 +418,16 @@
   <ItemGroup />
   <ItemGroup>
     <ClCompile Include="KamogawaEngine-.cpp" />
+    <ClCompile Include="Source\BaseApp.cpp" />
+    <ClCompile Include="Source\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="KamogawaEngine-.fx" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\BaseApp.h" />
+    <ClInclude Include="Include\Prerequisites.h" />
+    <ClInclude Include="Include\Window.h" />
     <CLInclude Include="resource.h" />
     <ResourceCompile Include="KamogawaEngine-.rc" />
   </ItemGroup>

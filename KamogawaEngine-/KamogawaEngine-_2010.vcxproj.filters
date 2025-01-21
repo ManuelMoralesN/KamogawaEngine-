@@ -19,9 +19,25 @@
       <UniqueIdentifier>{87cb663c-792e-4e0d-a711-272770f7a727}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ClInclude Include="Include\Prerequisites.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\BaseApp.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Window.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+  </ItemGroup>
   <ItemGroup>
     <ClCompile Include="KamogawaEngine-.cpp" />
+    <ClCompile Include="Source\BaseApp.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Window.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="KamogawaEngine-.fx">
