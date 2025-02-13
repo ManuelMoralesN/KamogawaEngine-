@@ -29,19 +29,19 @@ Texture															g_backBuffer;
 //ID3D11Device*												    g_pd3dDevice = NULL;
 //ID3D11DeviceContext*								            g_pImmediateContext = NULL;
 //IDXGISwapChain*											    g_pSwapChain = NULL;
-ID3D11RenderTargetView*							                g_pRenderTargetView = NULL;
-ID3D11Texture2D*										        g_pDepthStencil = NULL;
-ID3D11DepthStencilView*							                g_pDepthStencilView = NULL;
-ID3D11VertexShader*									            g_pVertexShader = NULL;
-ID3D11PixelShader*									            g_pPixelShader = NULL;
-ID3D11InputLayout*									            g_pVertexLayout = NULL;
-ID3D11Buffer*												    g_pVertexBuffer = NULL;
-ID3D11Buffer*												    g_pIndexBuffer = NULL;
-ID3D11Buffer*												    g_pCBNeverChanges = NULL;
-ID3D11Buffer*												    g_pCBChangeOnResize = NULL;
-ID3D11Buffer*												    g_pCBChangesEveryFrame = NULL;
-ID3D11ShaderResourceView*						                g_pTextureRV = NULL;
-ID3D11SamplerState*									            g_pSamplerLinear = NULL;
+ID3D11RenderTargetView*							                g_pRenderTargetView = nullptr;
+ID3D11Texture2D*										        g_pDepthStencil = nullptr;
+ID3D11DepthStencilView*							                g_pDepthStencilView = nullptr;
+ID3D11VertexShader*									            g_pVertexShader = nullptr;
+ID3D11PixelShader*									            g_pPixelShader = nullptr;
+ID3D11InputLayout*									            g_pVertexLayout = nullptr;
+ID3D11Buffer*												    g_pVertexBuffer = nullptr;
+ID3D11Buffer*												    g_pIndexBuffer = nullptr;
+ID3D11Buffer*												    g_pCBNeverChanges = nullptr;
+ID3D11Buffer*												    g_pCBChangeOnResize = nullptr;
+ID3D11Buffer*												    g_pCBChangesEveryFrame = nullptr;
+ID3D11ShaderResourceView*						                g_pTextureRV = nullptr;
+ID3D11SamplerState*									            g_pSamplerLinear = nullptr;
 XMMATRIX                                                        g_World;
 XMMATRIX                                                        g_View;
 XMMATRIX                                                        g_Projection;
@@ -86,7 +86,7 @@ int WINAPI wWinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdL
     MSG msg = {0};
     while( WM_QUIT != msg.message )
     {
-        if( PeekMessage( &msg, NULL, 0, 0, PM_REMOVE ) )
+        if( PeekMessage( &msg, nullptr, 0, 0, PM_REMOVE ) )
         {
             TranslateMessage( &msg );
             DispatchMessage( &msg );
@@ -119,11 +119,11 @@ HRESULT CompileShaderFromFile( char* szFileName, LPCSTR szEntryPoint, LPCSTR szS
 #endif
 
     ID3DBlob* pErrorBlob;
-    hr = D3DX11CompileFromFile( szFileName, NULL, NULL, szEntryPoint, szShaderModel, 
-        dwShaderFlags, 0, NULL, ppBlobOut, &pErrorBlob, NULL );
+    hr = D3DX11CompileFromFile( szFileName, nullptr, nullptr, szEntryPoint, szShaderModel, 
+        dwShaderFlags, 0, nullptr, ppBlobOut, &pErrorBlob, nullptr );
     if( FAILED(hr) )
     {
-        if( pErrorBlob != NULL )
+        if( pErrorBlob != nullptr )
             OutputDebugStringA( (char*)pErrorBlob->GetBufferPointer() );
         if( pErrorBlob ) pErrorBlob->Release();
         return hr;
@@ -219,7 +219,7 @@ HRESULT InitDevice()
     descDepth.BindFlags = D3D11_BIND_DEPTH_STENCIL;
     descDepth.CPUAccessFlags = 0;
     descDepth.MiscFlags = 0;
-    hr = g_device.CreateTexture2D( &descDepth, NULL, &g_pDepthStencil );
+    hr = g_device.CreateTexture2D( &descDepth, nullptr, &g_pDepthStencil );
     if( FAILED( hr ) )
         return hr;
 
@@ -243,17 +243,17 @@ HRESULT InitDevice()
     vp.TopLeftY = 0;
 
     // Compile the vertex shader
-    ID3DBlob* pVSBlob = NULL;
+    ID3DBlob* pVSBlob = nullptr;
     hr = CompileShaderFromFile( "KamogawaEngine-.fx", "VS", "vs_4_0", &pVSBlob );
     if( FAILED( hr ) )
     {
-        MessageBox( NULL,
+        MessageBox( nullptr,
                     "The FX file cannot be compiled.  Please run this executable from the directory that contains the FX file.", "Error", MB_OK );
         return hr;
     }
 
     // Create the vertex shader
-    hr = g_device.CreateVertexShader( pVSBlob->GetBufferPointer(), pVSBlob->GetBufferSize(), NULL, &g_pVertexShader );
+    hr = g_device.CreateVertexShader( pVSBlob->GetBufferPointer(), pVSBlob->GetBufferSize(), nullptr, &g_pVertexShader );
     if( FAILED( hr ) )
     {    
         pVSBlob->Release();
@@ -279,11 +279,11 @@ HRESULT InitDevice()
 
 
     // Compile the pixel shader
-    ID3DBlob* pPSBlob = NULL;
+    ID3DBlob* pPSBlob = nullptr;
     hr = CompileShaderFromFile( "KamogawaEngine-.fx", "PS", "ps_4_0", &pPSBlob );
     if( FAILED( hr ) )
     {
-        MessageBox( NULL,
+        MessageBox( nullptr,
                     "The FX file cannot be compiled.  Please run this executable from the directory that contains the FX file.", "Error", MB_OK );
         return hr;
     }
@@ -384,22 +384,22 @@ HRESULT InitDevice()
     bd.ByteWidth = sizeof(CBNeverChanges);
     bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
     bd.CPUAccessFlags = 0;
-    hr = g_device.CreateBuffer( &bd, NULL, &g_pCBNeverChanges );
+    hr = g_device.CreateBuffer( &bd, nullptr, &g_pCBNeverChanges );
     if( FAILED( hr ) )
         return hr;
     
     bd.ByteWidth = sizeof(CBChangeOnResize);
-    hr = g_device.CreateBuffer( &bd, NULL, &g_pCBChangeOnResize );
+    hr = g_device.CreateBuffer( &bd, nullptr, &g_pCBChangeOnResize );
     if( FAILED( hr ) )
         return hr;
     
     bd.ByteWidth = sizeof(CBChangesEveryFrame);
-    hr = g_device.CreateBuffer( &bd, NULL, &g_pCBChangesEveryFrame );
+    hr = g_device.CreateBuffer( &bd, nullptr, &g_pCBChangesEveryFrame );
     if( FAILED( hr ) )
         return hr;
 
     // Load the Texture
-    hr = D3DX11CreateShaderResourceViewFromFile(g_device.m_device, "seafloor.dds", NULL, NULL, &g_pTextureRV, NULL );
+    hr = D3DX11CreateShaderResourceViewFromFile(g_device.m_device, "seafloor.dds", nullptr, nullptr, &g_pTextureRV, nullptr );
     if( FAILED( hr ) )
         return hr;
 
