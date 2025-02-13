@@ -35,7 +35,6 @@ HRESULT SwapChain::init(Device& device,
     };
     unsigned int numFeatureLevels = ARRAYSIZE(featureLevels);
 
-    // Intentar crear el dispositivo con cada driver
     for (unsigned int driverTypeIndex = 0; driverTypeIndex < numDriverTypes; driverTypeIndex++) {
         m_driverType = driverTypes[driverTypeIndex];
         hr = D3D11CreateDevice(

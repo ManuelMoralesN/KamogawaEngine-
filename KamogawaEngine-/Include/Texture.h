@@ -11,17 +11,17 @@ public:
     ~Texture() = default;
   
     HRESULT init(Device device,
-        const std::string& textureName,
-        ExtensionType extensionType);
+                const std::string& textureName,
+                ExtensionType extensionType);
 
     
     HRESULT init(Device device,
-        unsigned int width,
-        unsigned int height,
-        DXGI_FORMAT Format,
-        unsigned int BindFlags,
-        unsigned int sampleCount = 1,
-        unsigned int qualityLevels = 0);
+                 unsigned int width,
+                 unsigned int height,
+                 DXGI_FORMAT Format,
+                 unsigned int BindFlags,
+                 unsigned int sampleCount = 1,
+                 unsigned int qualityLevels = 0);
 
     void
     update();
