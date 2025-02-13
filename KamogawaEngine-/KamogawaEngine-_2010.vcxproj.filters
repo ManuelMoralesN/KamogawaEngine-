@@ -29,6 +29,21 @@
     <ClInclude Include="Include\Window.h">
       <Filter>Include</Filter>
     </ClInclude>
+    <ClInclude Include="Include\Swapchain.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Device.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\DeviceContext.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Texture.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\stb_image.h">
+      <Filter>Include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="KamogawaEngine-.cpp" />
@@ -36,6 +51,18 @@
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Source\Window.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Device.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DeviceContext.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Texture.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Swapchain.cpp">
       <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
