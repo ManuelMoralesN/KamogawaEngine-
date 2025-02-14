@@ -73,7 +73,9 @@ void Render();
 // Entry point to the program. Initializes everything and goes into a message processing 
 // loop. Idle time is used to render the scene.
 //--------------------------------------------------------------------------------------
-int WINAPI wWinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLine, int nCmdShow )
+int WINAPI wWinMain(HINSTANCE hInstance, 
+                    HINSTANCE hPrevInstance, 
+                    LPWSTR lpCmdLine, int nCmdShow )
 {
     UNREFERENCED_PARAMETER( hPrevInstance );
     UNREFERENCED_PARAMETER( lpCmdLine );
@@ -111,7 +113,10 @@ int WINAPI wWinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdL
 //--------------------------------------------------------------------------------------
 // Helper for compiling shaders with D3DX11
 //--------------------------------------------------------------------------------------
-HRESULT CompileShaderFromFile( char* szFileName, LPCSTR szEntryPoint, LPCSTR szShaderModel, ID3DBlob** ppBlobOut )
+HRESULT CompileShaderFromFile( char* szFileName, 
+                                LPCSTR szEntryPoint, 
+                                LPCSTR szShaderModel, 
+                                ID3DBlob** ppBlobOut )
 {
     HRESULT hr = S_OK;
 
@@ -197,7 +202,10 @@ HRESULT InitDevice() {
     if( FAILED( hr ) )
         return hr;*/
     //create swapchain and backbuffer
-    hr = g_swapchain.init(g_device, g_deviceContext, g_backBuffer, g_window);
+    hr = g_swapchain.init(g_device, 
+                          g_deviceContext, 
+                          g_backBuffer, 
+                          g_window);
     if (FAILED(hr)) {
         return hr;
     }

@@ -61,7 +61,9 @@ HRESULT SwapChain::init(Device& device,
 
     // Configurar MSAA
     m_sampleCount = 4;
-    hr = device.m_device->CheckMultisampleQualityLevels(DXGI_FORMAT_R8G8B8A8_UNORM, m_sampleCount, &m_qualityLevels);
+    hr = device.m_device->CheckMultisampleQualityLevels(DXGI_FORMAT_R8G8B8A8_UNORM, 
+                                                        m_sampleCount, 
+                                                        &m_qualityLevels);
     if (FAILED(hr) || m_qualityLevels == 0) {
         ERROR("SwapChain", "init", "MSAA not supported or invalid quality level");
         return hr;
@@ -119,15 +121,18 @@ HRESULT SwapChain::init(Device& device,
     return S_OK;
 }
 
-void SwapChain::update() {
+void 
+SwapChain::update() {
     // Se puede agregar código para manejar eventos de SwapChain si es necesario
 }
 
-void SwapChain::render() {
+void 
+SwapChain::render() {
     // Este método puede expandirse para gestionar múltiples buffers de renderizado
 }
 
-void SwapChain::destroy() {
+void 
+SwapChain::destroy() {
     SAFE_RELEASE(m_swapchain);
     SAFE_RELEASE(m_dxgiFactory);
     SAFE_RELEASE(m_dxgiAdapter);

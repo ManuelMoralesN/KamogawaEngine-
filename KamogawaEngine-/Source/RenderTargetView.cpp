@@ -5,7 +5,9 @@
 #include "DepthStencilView.h"
 
 HRESULT
-RenderTargetView::init(Device& device, Texture& backBuffer, DXGI_FORMAT Format) {
+RenderTargetView::init(Device& device, 
+                       Texture& backBuffer,
+                       DXGI_FORMAT Format) {
     if (!device.m_device) {
         ERROR("RenderTargetView", "init", "Device is nullptr");
         return E_POINTER;
@@ -40,9 +42,9 @@ RenderTargetView::update() {
 
 void
 RenderTargetView::render(DeviceContext& deviceContext,
-    DepthStencilView& depthStencilView,
-    unsigned int numViews,
-    const float ClearColor[4]) {
+                         DepthStencilView& depthStencilView,
+                         unsigned int numViews,
+                         const float ClearColor[4]) {
     if (!m_renderTargetView) {
         ERROR("RenderTargetView", "render", "RenderTargetView is nullptr");
         return;

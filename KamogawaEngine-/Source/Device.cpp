@@ -7,8 +7,8 @@ Device::destroy() {
 
 HRESULT
 Device::CreateRenderTargetView(ID3D11Resource* pResource,
-    const D3D11_RENDER_TARGET_VIEW_DESC* pDesc,
-    ID3D11RenderTargetView** ppRTView) {
+                               const D3D11_RENDER_TARGET_VIEW_DESC* pDesc,
+                               ID3D11RenderTargetView** ppRTView) {
     // Validar prametros de entrada
     if (!pResource) {
         ERROR("Device", "CreateRenderTargetView", "pResurce is nullptr");
@@ -21,7 +21,9 @@ Device::CreateRenderTargetView(ID3D11Resource* pResource,
     }
 
     // Crear el Render Target View
-    HRESULT hr = m_device->CreateRenderTargetView(pResource, pDesc, ppRTView);
+    HRESULT hr = m_device->CreateRenderTargetView(pResource, 
+                                                  pDesc, 
+                                                  ppRTView);
 
     if (SUCCEEDED(hr)) {
         MESSAGE("Device", "CreateRenderTargetView", "Render Target View created successfully!");
@@ -36,8 +38,8 @@ Device::CreateRenderTargetView(ID3D11Resource* pResource,
 
 HRESULT
 Device::CreateTexture2D(const D3D11_TEXTURE2D_DESC* pDesc,
-    const D3D11_SUBRESOURCE_DATA* pInitialData,
-    ID3D11Texture2D** ppTexture2D) {
+                        const D3D11_SUBRESOURCE_DATA* pInitialData,
+                        ID3D11Texture2D** ppTexture2D) {
     if (!pDesc) {
         ERROR("Device", "CreateTexture2D", "pDesc is nullptr");
         return E_INVALIDARG;
@@ -47,7 +49,9 @@ Device::CreateTexture2D(const D3D11_TEXTURE2D_DESC* pDesc,
         return E_POINTER;
     }
 
-    HRESULT hr = m_device->CreateTexture2D(pDesc, pInitialData, ppTexture2D);
+    HRESULT hr = m_device->CreateTexture2D(pDesc, 
+                                           pInitialData, 
+                                           ppTexture2D);
 
     if (SUCCEEDED(hr)) {
         MESSAGE("Device", "CreateTexture2D", "Texture2D created successfully");
@@ -62,8 +66,8 @@ Device::CreateTexture2D(const D3D11_TEXTURE2D_DESC* pDesc,
 
 HRESULT
 Device::CreateDepthStencilView(ID3D11Resource* pResource,
-    const D3D11_DEPTH_STENCIL_VIEW_DESC* pDesc,
-    ID3D11DepthStencilView** ppDepthStencilView) {
+                               const D3D11_DEPTH_STENCIL_VIEW_DESC* pDesc,
+                               ID3D11DepthStencilView** ppDepthStencilView) {
     if (!pResource) {
         ERROR("Device", "CreateDepthStencilView", "pResource is nullptr");
         return E_INVALIDARG;
@@ -73,7 +77,9 @@ Device::CreateDepthStencilView(ID3D11Resource* pResource,
         return E_POINTER;
     }
 
-    HRESULT hr = m_device->CreateDepthStencilView(pResource, pDesc, ppDepthStencilView);
+    HRESULT hr = m_device->CreateDepthStencilView(pResource, 
+                                                  pDesc, 
+                                                  ppDepthStencilView);
 
     if (SUCCEEDED(hr)) {
         MESSAGE("Device", "CreateDepthStencilView", "DepthStencilView created successfully");
@@ -88,9 +94,9 @@ Device::CreateDepthStencilView(ID3D11Resource* pResource,
 
 HRESULT
 Device::CreateVertexShader(const void* pShaderBytecode,
-    unsigned int BytecodeLength,
-    ID3D11ClassLinkage* pClassLinkage,
-    ID3D11VertexShader** ppVertexShader) {
+                           unsigned int BytecodeLength,
+                           ID3D11ClassLinkage* pClassLinkage,
+                           ID3D11VertexShader** ppVertexShader) {
     if (!pShaderBytecode) {
         ERROR("Device", "CreateVertexShader", "pShaderBytecode is nullptr");
         return E_INVALIDARG;
@@ -100,7 +106,10 @@ Device::CreateVertexShader(const void* pShaderBytecode,
         return E_POINTER;
     }
 
-    HRESULT hr = m_device->CreateVertexShader(pShaderBytecode, BytecodeLength, pClassLinkage, ppVertexShader);
+    HRESULT hr = m_device->CreateVertexShader(pShaderBytecode, 
+                                              BytecodeLength, 
+                                              pClassLinkage, 
+                                              ppVertexShader);
 
     if (SUCCEEDED(hr)) {
         MESSAGE("Device", "CreateVertexShader", "VertexShader created successfully");
@@ -115,10 +124,10 @@ Device::CreateVertexShader(const void* pShaderBytecode,
 
 HRESULT
 Device::CreateInputLayout(D3D11_INPUT_ELEMENT_DESC* pInputElementDescs,
-    unsigned int NumElements,
-    const void* pShaderBytecodeWithInputSignature,
-    unsigned int BytecodeLength,
-    ID3D11InputLayout** ppInputLayout) {
+                          unsigned int NumElements,
+                          const void* pShaderBytecodeWithInputSignature,
+                          unsigned int BytecodeLength,
+                          ID3D11InputLayout** ppInputLayout) {
     if (!pInputElementDescs) {
         ERROR("Device", "CreateInputLayout", "pInputElementDescs is nullptr");
         return E_INVALIDARG;
@@ -128,7 +137,11 @@ Device::CreateInputLayout(D3D11_INPUT_ELEMENT_DESC* pInputElementDescs,
         return E_POINTER;
     }
 
-    HRESULT hr = m_device->CreateInputLayout(pInputElementDescs, NumElements, pShaderBytecodeWithInputSignature, BytecodeLength, ppInputLayout);
+    HRESULT hr = m_device->CreateInputLayout(pInputElementDescs, 
+                                            NumElements, 
+                                            pShaderBytecodeWithInputSignature, 
+                                            BytecodeLength, 
+                                            ppInputLayout);
 
     if (SUCCEEDED(hr)) {
         MESSAGE("Device", "CreateInputLayout", "InputLayout created successfully");
@@ -143,9 +156,9 @@ Device::CreateInputLayout(D3D11_INPUT_ELEMENT_DESC* pInputElementDescs,
 
 HRESULT
 Device::CreatePixelShader(const void* pShaderBytecode,
-    unsigned int BytecodeLength,
-    ID3D11ClassLinkage* pClassLinkage,
-    ID3D11PixelShader** ppPixelShader) {
+                          unsigned int BytecodeLength,
+                          ID3D11ClassLinkage* pClassLinkage,
+                          ID3D11PixelShader** ppPixelShader) {
     if (!pShaderBytecode) {
         ERROR("Device", "CreatePixelShader", "pShaderBytecode is nullptr");
         return E_INVALIDARG;
@@ -155,7 +168,10 @@ Device::CreatePixelShader(const void* pShaderBytecode,
         return E_POINTER;
     }
 
-    HRESULT hr = m_device->CreatePixelShader(pShaderBytecode, BytecodeLength, pClassLinkage, ppPixelShader);
+    HRESULT hr = m_device->CreatePixelShader(pShaderBytecode, 
+                                            BytecodeLength, 
+                                            pClassLinkage, 
+                                            ppPixelShader);
 
     if (SUCCEEDED(hr)) {
         MESSAGE("Device", "CreatePixelShader", "PixelShader created successfully");
@@ -170,8 +186,8 @@ Device::CreatePixelShader(const void* pShaderBytecode,
 
 HRESULT
 Device::CreateBuffer(const D3D11_BUFFER_DESC* pDesc,
-    const D3D11_SUBRESOURCE_DATA* pInitialData,
-    ID3D11Buffer** ppBuffer) {
+                     const D3D11_SUBRESOURCE_DATA* pInitialData,
+                     ID3D11Buffer** ppBuffer) {
     if (!pDesc) {
         ERROR("Device", "CreateBuffer", "pDesc is nullptr");
         return E_INVALIDARG;
@@ -181,7 +197,9 @@ Device::CreateBuffer(const D3D11_BUFFER_DESC* pDesc,
         return E_POINTER;
     }
 
-    HRESULT hr = m_device->CreateBuffer(pDesc, pInitialData, ppBuffer);
+    HRESULT hr = m_device->CreateBuffer(pDesc, 
+                                        pInitialData, 
+                                        ppBuffer);
 
     if (SUCCEEDED(hr)) {
         MESSAGE("Device", "CreateBuffer", "Buffer created successfully");
@@ -196,7 +214,7 @@ Device::CreateBuffer(const D3D11_BUFFER_DESC* pDesc,
 
 HRESULT
 Device::CreateSamplerState(const D3D11_SAMPLER_DESC* pSamplerDesc,
-    ID3D11SamplerState** ppSamplerState) {
+                           ID3D11SamplerState** ppSamplerState) {
     if (!pSamplerDesc) {
         ERROR("Device", "CreateSamplerState", "pSamplerDesc is nullptr");
         return E_INVALIDARG;
@@ -206,7 +224,8 @@ Device::CreateSamplerState(const D3D11_SAMPLER_DESC* pSamplerDesc,
         return E_POINTER;
     }
 
-    HRESULT hr = m_device->CreateSamplerState(pSamplerDesc, ppSamplerState);
+    HRESULT hr = m_device->CreateSamplerState(pSamplerDesc, 
+                                              ppSamplerState);
 
     if (SUCCEEDED(hr)) {
         MESSAGE("Device", "CreateSamplerState", "SamplerState created successfully");
@@ -221,7 +240,7 @@ Device::CreateSamplerState(const D3D11_SAMPLER_DESC* pSamplerDesc,
 
 HRESULT
 Device::CreateRasterizerState(const D3D11_RASTERIZER_DESC* pRasterizerDesc,
-    ID3D11RasterizerState** ppRasterizerState) {
+                              ID3D11RasterizerState** ppRasterizerState) {
     if (!pRasterizerDesc) {
         ERROR("Device", "CreateRasterizerState", "pRasterizerDesc is nullptr");
         return E_INVALIDARG;
@@ -231,7 +250,8 @@ Device::CreateRasterizerState(const D3D11_RASTERIZER_DESC* pRasterizerDesc,
         return E_POINTER;
     }
 
-    HRESULT hr = m_device->CreateRasterizerState(pRasterizerDesc, ppRasterizerState);
+    HRESULT hr = m_device->CreateRasterizerState(pRasterizerDesc, 
+                                                ppRasterizerState);
 
     if (SUCCEEDED(hr)) {
         MESSAGE("Device", "CreateRasterizerState", "RasterizerState created successfully");
@@ -246,7 +266,7 @@ Device::CreateRasterizerState(const D3D11_RASTERIZER_DESC* pRasterizerDesc,
 
 HRESULT
 Device::CreateBlendState(const D3D11_BLEND_DESC* pBlendStateDesc,
-    ID3D11BlendState** ppBlendState) {
+                         ID3D11BlendState** ppBlendState) {
     if (!pBlendStateDesc) {
         ERROR("Device", "CreateBlendState", "pBlendStateDesc is nullptr");
         return E_INVALIDARG;
@@ -256,7 +276,8 @@ Device::CreateBlendState(const D3D11_BLEND_DESC* pBlendStateDesc,
         return E_POINTER;
     }
 
-    HRESULT hr = m_device->CreateBlendState(pBlendStateDesc, ppBlendState);
+    HRESULT hr = m_device->CreateBlendState(pBlendStateDesc,    
+                                            ppBlendState);
 
     if (SUCCEEDED(hr)) {
         MESSAGE("Device", "CreateBlendState", "BlendState created successfully");

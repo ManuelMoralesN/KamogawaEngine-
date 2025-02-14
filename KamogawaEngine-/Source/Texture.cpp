@@ -4,7 +4,9 @@
 #include "Device.h"
 #include "DeviceContext.h"
 
-HRESULT Texture::init(Device device, const std::string& textureName, ExtensionType extensionType) {
+HRESULT Texture::init(Device device, 
+                      const std::string& textureName, 
+                      ExtensionType extensionType) {
     if (!device.m_device) {
         ERROR("Texture", "init", "Device is nullptr in texture loading method");
         return E_POINTER;
@@ -58,7 +60,9 @@ HRESULT Texture::init(Device device, const std::string& textureName, ExtensionTy
         initData.SysMemPitch = width * 4;
 
 
-        hr = device.CreateTexture2D(&textureDesc, &initData, &m_texture);
+        hr = device.CreateTexture2D(&textureDesc, 
+                                    &initData, 
+                                    &m_texture);
         stbi_image_free(data); // Liberar los datos de imagen inmediatamente
 
         if (FAILED(hr)) {
@@ -90,13 +94,14 @@ HRESULT Texture::init(Device device, const std::string& textureName, ExtensionTy
     return hr;
 }
 
-HRESULT Texture::init(Device device,
-                        unsigned int width,
-                        unsigned int height,
-                        DXGI_FORMAT format,
-                        unsigned int bindFlags,
-                        unsigned int sampleCount,
-                        unsigned int qualityLevels) {
+HRESULT 
+Texture::init(Device device,
+              unsigned int width,
+              unsigned int height,
+              DXGI_FORMAT format,
+              unsigned int bindFlags,
+              unsigned int sampleCount,
+              unsigned int qualityLevels) {
     if (!device.m_device) {
         ERROR("Texture", "init", "Device is nullptr in texture initialization method");
         return E_POINTER;
@@ -134,7 +139,9 @@ Texture::update() {
 }
 
 void 
-Texture::render(DeviceContext& deviceContext, unsigned int StartSlot, unsigned int NumViews) {
+Texture::render(DeviceContext& deviceContext, 
+                unsigned int StartSlot, 
+                unsigned int NumViews) {
     if (m_textureFromImg) {
         ID3D11ShaderResourceView* nullSRV[] = { nullptr };
         deviceContext.PSSetShaderResources(StartSlot, NumViews, nullSRV);

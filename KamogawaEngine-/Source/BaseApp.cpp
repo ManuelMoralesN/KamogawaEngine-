@@ -20,10 +20,10 @@ BaseApp::destroy() {
 
 int
 BaseApp::run(HINSTANCE hInstance,
-			HINSTANCE hPrevInstance,
-			LPWSTR lpCmdLine,
-			int nCmdShow,
-			WNDPROC wndproc) {
+			 HINSTANCE hPrevInstance,
+			 LPWSTR lpCmdLine,
+			 int nCmdShow,
+			 WNDPROC wndproc) {
     
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
