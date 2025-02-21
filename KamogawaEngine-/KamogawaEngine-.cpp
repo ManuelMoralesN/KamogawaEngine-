@@ -14,7 +14,8 @@
 #include "RenderTargetView.h"
 #include "DepthStencilView.h"
 #include "Viewport.h"
-#include "InputLayout.h"
+//#include "InputLayout.h"
+#include "ShaderProgram.h"
 //--------------------------------------------------------------------------------------
 // Structures
 //--------------------------------------------------------------------------------------
@@ -32,7 +33,8 @@ Texture															g_depthStencil;
 RenderTargetView										        g_renderTargetView;
 DepthStencilView										        g_depthStencilView;
 Viewport                                                        g_viewport;
-InputLayout													    g_inputLayout;
+ShaderProgram                                                   g_shaderProgram;
+//InputLayout													g_inputLayout;
 
 //D3D_DRIVER_TYPE                                               g_driverType = D3D_DRIVER_TYPE_NULL;
 //D3D_FEATURE_LEVEL                                             g_featureLevel = D3D_FEATURE_LEVEL_11_0;
@@ -42,8 +44,8 @@ InputLayout													    g_inputLayout;
 //ID3D11RenderTargetView*							            g_pRenderTargetView = nullptr;
 //ID3D11Texture2D*										        g_pDepthStencil = nullptr;
 //ID3D11DepthStencilView*							            g_pDepthStencilView = nullptr;
-ID3D11VertexShader*									            g_pVertexShader = nullptr;
-ID3D11PixelShader*									            g_pPixelShader = nullptr;
+//ID3D11VertexShader*									            g_pVertexShader = nullptr;
+//ID3D11PixelShader*									            g_pPixelShader = nullptr;
 //ID3D11InputLayout*									            g_pVertexLayout = nullptr;
 ID3D11Buffer*												    g_pVertexBuffer = nullptr;
 ID3D11Buffer*												    g_pIndexBuffer = nullptr;
@@ -118,36 +120,7 @@ int WINAPI wWinMain(HINSTANCE hInstance,
 //--------------------------------------------------------------------------------------
 // Helper for compiling shaders with D3DX11
 //--------------------------------------------------------------------------------------
-HRESULT CompileShaderFromFile( char* szFileName, 
-                                LPCSTR szEntryPoint, 
-                                LPCSTR szShaderModel, 
-                                ID3DBlob** ppBlobOut )
-{
-    HRESULT hr = S_OK;
 
-    DWORD dwShaderFlags = D3DCOMPILE_ENABLE_STRICTNESS;
-#if defined( DEBUG ) || defined( _DEBUG )
-    // Set the D3DCOMPILE_DEBUG flag to embed debug information in the shaders.
-    // Setting this flag improves the shader debugging experience, but still allows 
-    // the shaders to be optimized and to run exactly the way they will run in 
-    // the release configuration of this program.
-    dwShaderFlags |= D3DCOMPILE_DEBUG;
-#endif
-
-    ID3DBlob* pErrorBlob;
-    hr = D3DX11CompileFromFile( szFileName, nullptr, nullptr, szEntryPoint, szShaderModel, 
-        dwShaderFlags, 0, nullptr, ppBlobOut, &pErrorBlob, nullptr );
-    if( FAILED(hr) )
-    {
-        if( pErrorBlob != nullptr )
-            OutputDebugStringA( (char*)pErrorBlob->GetBufferPointer() );
-        if( pErrorBlob ) pErrorBlob->Release();
-        return hr;
-    }
-    if( pErrorBlob ) pErrorBlob->Release();
-
-    return S_OK;
-}
 
 
 //--------------------------------------------------------------------------------------
@@ -255,22 +228,9 @@ HRESULT InitDevice() {
     }
 
     // Compile the vertex shader
-    ID3DBlob* pVSBlob = nullptr;
-    hr = CompileShaderFromFile( "KamogawaEngine-.fx", "VS", "vs_4_0", &pVSBlob );
-    if( FAILED( hr ) )
-    {
-        MessageBox( nullptr,
-                    "The FX file cannot be compiled.  Please run this executable from the directory that contains the FX file.", "Error", MB_OK );
-        return hr;
-    }
+
 
     // Create the vertex shader
-    hr = g_device.CreateVertexShader( pVSBlob->GetBufferPointer(), pVSBlob->GetBufferSize(), nullptr, &g_pVertexShader );
-    if( FAILED( hr ) )
-    {    
-        pVSBlob->Release();
-        return hr;
-    }
 
     // Define the input layout
     std::vector<D3D11_INPUT_ELEMENT_DESC> Layout;
@@ -294,26 +254,16 @@ HRESULT InitDevice() {
     Layout.push_back(texcoord);
 
     // Create the input layout
-    hr = g_inputLayout.init(g_device, Layout, pVSBlob);
-    if( FAILED( hr ) )
-        return hr;
+
 
 
     // Compile the pixel shader
-    ID3DBlob* pPSBlob = nullptr;
-    hr = CompileShaderFromFile( "KamogawaEngine-.fx", "PS", "ps_4_0", &pPSBlob );
-    if( FAILED( hr ) )
-    {
-        MessageBox( nullptr,
-                    "The FX file cannot be compiled.  Please run this executable from the directory that contains the FX file.", "Error", MB_OK );
+    hr = g_shaderProgram.init(g_device, "KamogawaEngine-.fx", Layout);
+    if (FAILED(hr))
         return hr;
-    }
-
+    
     // Create the pixel shader
-    hr = g_device.CreatePixelShader( pPSBlob->GetBufferPointer(), pPSBlob->GetBufferSize(), NULL, &g_pPixelShader );
-    pPSBlob->Release();
-    if( FAILED( hr ) )
-        return hr;
+
 
     // Create vertex buffer
     SimpleVertex vertices[] =
@@ -466,8 +416,6 @@ void CleanupDevice()
     if( g_pCBChangesEveryFrame ) g_pCBChangesEveryFrame->Release();
     if( g_pVertexBuffer ) g_pVertexBuffer->Release();
     if( g_pIndexBuffer ) g_pIndexBuffer->Release();
-    if( g_pVertexShader ) g_pVertexShader->Release();
-    if( g_pPixelShader ) g_pPixelShader->Release();
 
     g_depthStencil.destroy();
     g_depthStencilView.destroy();
@@ -475,7 +423,7 @@ void CleanupDevice()
     g_swapchain.destroy();
     g_deviceContext.destroy();
     g_device.destroy();
-    g_inputLayout.destroy();
+    g_shaderProgram.destroy();
 }
 
 
@@ -635,18 +583,15 @@ void Render() {
     g_depthStencilView.render(g_deviceContext);
 
     // Configurar los buffers y shaders para el pipeline
-    g_inputLayout.render(g_deviceContext);
+    g_shaderProgram.render(g_deviceContext);
     g_deviceContext.IASetVertexBuffers(0, 1, &g_pVertexBuffer, &stride, &offset);
     g_deviceContext.IASetIndexBuffer(g_pIndexBuffer, DXGI_FORMAT_R16_UINT, 0);
     g_deviceContext.IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
     // Asignar shaders y buffers constantes
-    g_deviceContext.VSSetShader(g_pVertexShader, nullptr, 0);
     g_deviceContext.VSSetConstantBuffers(0, 1, &g_pCBNeverChanges);
     g_deviceContext.VSSetConstantBuffers(1, 1, &g_pCBChangeOnResize);
     g_deviceContext.VSSetConstantBuffers(2, 1, &g_pCBChangesEveryFrame);
-
-    g_deviceContext.PSSetShader(g_pPixelShader, nullptr, 0);
     g_deviceContext.PSSetConstantBuffers(2, 1, &g_pCBChangesEveryFrame);
     g_deviceContext.PSSetShaderResources(0, 1, &g_pTextureRV);
     g_deviceContext.PSSetSamplers(0, 1, &g_pSamplerLinear);

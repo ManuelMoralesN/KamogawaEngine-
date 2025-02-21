@@ -94,3 +94,9 @@
     PNG = 1, ///< Imagen en formato PNG.
     JPG = 2  ///< Imagen en formato JPG.
 };
+
+    enum
+    ShaderType {
+        VERTEX_SHADER = 0,
+        PIXEL_SHADER = 1
+    };
