@@ -1,60 +1,83 @@
 #pragma once
 #include "Prerequisites.h"
+#include "Window.h"
+#include "Device.h"
+#include "DeviceContext.h"
+#include "Swapchain.h"
+#include "Texture.h"
+#include "RenderTargetView.h"
+#include "DepthStencilView.h"
+#include "Viewport.h"
+#include "ShaderProgram.h"
+#include "Buffer.h"
+#include "MeshComponent.h"
+#include "SamplerState.h"
 
-/**
- * Clase base para la aplicación principal.
- * Gestiona la inicialización, actualización, renderización y destrucción de la aplicación.
- */
-class BaseApp {
+class 
+BaseApp {
 public:
-    /**
-     * Constructor por defecto.
-     */
     BaseApp() = default;
-
-    /**
-     * Destructor por defecto.
-     */
     ~BaseApp() = default;
 
-    /**
-     * Inicializa la aplicación.
-     *
-     * @return HRESULT indicando el éxito o fallo de la inicialización.
-     */
-    HRESULT init();
+    
+    HRESULT 
+    init();
+    
+    void 
+    update();
 
-    /**
-     * Actualiza la lógica de la aplicación en cada frame.
-     */
-    void update();
+    void 
+    render();
 
-    /**
-     * Renderiza el contenido gráfico de la aplicación.
-     */
-    void render();
+    void 
+    destroy();
 
-    /**
-     * Libera los recursos utilizados por la aplicación.
-     */
-    void destroy();
+    void
+    InputActionMap(float deltaTime);
 
-    /**
-     * Ejecuta la aplicación.
-     *
-     * @param hInstance Instancia de la aplicación.
-     * @param hPrevInstance Instancia previa de la aplicación (normalmente nula en Windows modernos).
-     * @param lpCmdLine Línea de comandos pasada a la aplicación.
-     * @param nCmdShow Parámetro para mostrar la ventana.
-     * @param wndproc Procedimiento de la ventana.
-     * @return Código de retorno de la ejecución.
-     */
+
+    HRESULT
+    resizeWindow(HWND hWnd, LPARAM lParam);
+
+    void
+    updateCamera();
+
     int run(HINSTANCE hInstance,
-        HINSTANCE hPrevInstance,
-        LPWSTR lpCmdLine,
-        int nCmdShow,
-        WNDPROC wndproc);
+            HINSTANCE hPrevInstance,
+            LPWSTR lpCmdLine,
+            int nCmdShow,
+            WNDPROC wndproc);
 
-private:
-    // Variables privadas de la clase (a definir según necesidades).
+public:     
+    Window                                          m_window;
+    Device                                          m_device;
+    DeviceContext                                   m_deviceContext;
+    SwapChain                                       m_swapchain;
+    Texture                                         m_backBuffer;
+    Texture                                         m_depthStencil;
+    RenderTargetView                                m_renderTargetView;
+    DepthStencilView                                m_depthStencilView;
+    Viewport                                        m_viewport;
+    ShaderProgram                                   m_shaderProgram;
+    Buffer                                          m_vertexBuffer;
+    Buffer                                          m_indexBuffer;
+    Buffer                                          m_neverChanges;
+    Buffer                                          m_changeOnResize;
+    Buffer                                          m_changeEveryFrame;
+    Texture											m_textureCubeImg;
+    SamplerState									m_samplerState;
+    Camera                                          m_camera;
+    XMMATRIX                                        m_modelMatrix;
+    XMMATRIX                                        m_View;
+    XMMATRIX                                        m_Projection;
+    XMFLOAT4                                        m_vMeshColor;
+    XMFLOAT3                                        position;  
+    XMFLOAT3                                        rotation;  
+    XMFLOAT3                                        scale;     
+    MeshComponent                                   m_meshComponent;
+    CBChangesEveryFrame                             cb;
+    CBNeverChanges                                  cbNeverChanges;
+    CBChangeOnResize                                cbChangesOnResize;
+    
+    bool keys[256] = { false };
 };

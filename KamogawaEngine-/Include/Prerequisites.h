@@ -100,3 +100,25 @@
         VERTEX_SHADER = 0,
         PIXEL_SHADER = 1
     };
+
+    struct Camera {
+        XMFLOAT3 position; //Posicion de la camara
+        XMFLOAT3 target; //Posocion que mira
+
+        XMFLOAT3 up; //Vector hacia arriba
+        XMFLOAT3 forward; // Direccion hacia adelante
+        XMFLOAT3 right; //Direccion hacia la derecha
+
+        float yaw; //Rotacion en eje Y
+        float pitch; //Rotacion en eje X
+
+        Camera() {
+            position = XMFLOAT3(0.0f, 2.0f, -5.0f);
+            target = XMFLOAT3(0.0f, 2.0f, 0.0f);
+            up = XMFLOAT3(0.0f, 1.0f, 0.0f);
+            forward = XMFLOAT3(0.0f, 0.0f, 1.0f);
+            right = XMFLOAT3(1.0f, 0.0f, 0.0f);
+            yaw = 0.0f;
+            pitch = 0.0f;
+        }
+    };
