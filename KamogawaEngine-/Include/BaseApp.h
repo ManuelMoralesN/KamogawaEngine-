@@ -42,6 +42,9 @@ public:
     void
     updateCamera();
 
+    void
+    rotateCamera(int mouseX, int mouseY);
+
     int run(HINSTANCE hInstance,
             HINSTANCE hPrevInstance,
             LPWSTR lpCmdLine,
@@ -80,4 +83,9 @@ public:
     CBChangeOnResize                                cbChangesOnResize;
     
     bool keys[256] = { false };
+    float sensitivity = 0.01f;
+    bool mouseLeftDown = false; 
+    int lastX;
+    int lastY;  
+    
 };

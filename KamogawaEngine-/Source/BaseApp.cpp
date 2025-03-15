@@ -391,6 +391,34 @@ BaseApp::updateCamera(){
 	m_neverChanges.update(m_deviceContext, 0, nullptr, &cbNeverChanges, 0, 0);
 }
 
+void BaseApp::rotateCamera(int mouseX, int mouseY){
+	float offsetX = (mouseX - lastX) * sensitivity;
+	float offsetY = (mouseY - lastY) * sensitivity;
+
+	lastX = mouseX;
+	lastY = mouseY;
+
+	m_camera.yaw += offsetX;
+	m_camera.pitch += offsetY;
+
+	//limitar la inclinacion de la camara
+	if (m_camera.pitch > 1.5f) m_camera.pitch = 1.5f;
+	if (m_camera.pitch > -1.5f) m_camera.pitch = -1.5f;
+
+	//recalcular la direccion hacia adelante
+	XMVECTOR forward = XMVectorSet(
+		cosf(m_camera.yaw) * cosf(m_camera.pitch),
+		sinf(m_camera.pitch),
+		sinf(m_camera.yaw) * cosf(m_camera.pitch),
+		0.0f
+	);
+
+	XMVECTOR right = XMVector3Cross(forward, XMLoadFloat3(&m_camera.up));
+
+	XMStoreFloat3(&m_camera.forward, XMVector3Normalize(forward));
+	XMStoreFloat3(&m_camera.right, XMVector3Normalize(right));
+}
+
 void
 BaseApp::InputActionMap(float deltaTime) {
 	float speed = 1.0f * deltaTime; 
