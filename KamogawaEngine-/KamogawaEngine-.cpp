@@ -5,8 +5,12 @@
 BaseApp app;
 
 // Called every time the application receives a message
+extern IMGUI_IMPL_API
+LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 LRESULT CALLBACK
 WndProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam) {
+	if (ImGui_ImplWin32_WndProcHandler(hWnd, message, wParam, lParam))
+	return true;
 	PAINTSTRUCT ps;
 	HDC hdc;
 
@@ -32,17 +36,25 @@ WndProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam) {
 	case WM_KEYUP:
 		app.keys[wParam] = false;
 		break;
-
+	
 	case WM_RBUTTONDOWN:
-		app.mouseLeftDown = true;
+		app.mouseRightDown = true;
 		break;
 
 	case WM_RBUTTONUP:
+		app.mouseRightDown = false;
+		break;
+
+	case WM_LBUTTONDOWN:
+		app.mouseLeftDown = true;
+		break;
+	
+	case WM_LBUTTONUP:
 		app.mouseLeftDown = false;
 		break;
 
 	case WM_MOUSEMOVE:
-		if (app.mouseLeftDown) {
+		if (app.mouseRightDown && !ImGui::GetIO().WantCaptureMouse) {
 			int x = LOWORD(lParam);
 			int y = HIWORD(lParam);
 			app.rotateCamera(x, y);

@@ -12,80 +12,124 @@
 #include "Buffer.h"
 #include "MeshComponent.h"
 #include "SamplerState.h"
+#include "UserInterface.h"
 
+/**
+ * @brief Clase principal base para una aplicación gráfica.
+ * Encapsula la lógica de inicialización, actualización, renderizado y destrucción.
+ */
 class 
 BaseApp {
 public:
     BaseApp() = default;
     ~BaseApp() = default;
 
-    
-    HRESULT 
+    /**
+     * @brief Inicializa los componentes necesarios para la aplicación.
+     * @return HRESULT Indica si la inicialización fue exitosa.
+     */
+    HRESULT
     init();
-    
+
+    /**
+     * @brief Actualiza el estado de la aplicación en cada ciclo.
+     */
     void 
     update();
 
+    /**
+     * @brief Lógica de renderizado de cada frame.
+     */
     void 
     render();
 
+    /**
+     * @brief Libera recursos y finaliza la aplicación.
+     */
     void 
     destroy();
 
-    void
+    /**
+     * @brief Mapea las entradas del usuario y aplica acciones según el deltaTime.
+     * @param deltaTime Tiempo transcurrido desde el último frame.
+     */
+    void 
     InputActionMap(float deltaTime);
 
-
-    HRESULT
+    /**
+     * @brief Maneja el evento de redimensionamiento de la ventana.
+     * @param hWnd Manejador de la ventana.
+     * @param lParam Parámetros del evento de redimensionamiento.
+     * @return HRESULT Resultado del manejo.
+     */
+    HRESULT 
     resizeWindow(HWND hWnd, LPARAM lParam);
 
-    void
+    /**
+     * @brief Actualiza la cámara con base en las entradas o cambios del entorno.
+     */
+    void 
     updateCamera();
 
-    void
+    /**
+     * @brief Rota la cámara en función del movimiento del mouse.
+     * @param mouseX Posición X del mouse.
+     * @param mouseY Posición Y del mouse.
+     */
+    void 
     rotateCamera(int mouseX, int mouseY);
 
+    /**
+     * @brief Inicia la ejecución principal de la aplicación.
+     * @param hInstance Instancia actual de la aplicación.
+     * @param hPrevInstance Instancia anterior (usualmente nula).
+     * @param lpCmdLine Línea de comandos.
+     * @param nCmdShow Modo de visualización de la ventana.
+     * @param wndproc Procedimiento de ventana.
+     * @return int Código de retorno de la aplicación.
+     */
     int run(HINSTANCE hInstance,
             HINSTANCE hPrevInstance,
             LPWSTR lpCmdLine,
             int nCmdShow,
             WNDPROC wndproc);
 
-public:     
-    Window                                          m_window;
-    Device                                          m_device;
-    DeviceContext                                   m_deviceContext;
-    SwapChain                                       m_swapchain;
-    Texture                                         m_backBuffer;
-    Texture                                         m_depthStencil;
-    RenderTargetView                                m_renderTargetView;
-    DepthStencilView                                m_depthStencilView;
-    Viewport                                        m_viewport;
-    ShaderProgram                                   m_shaderProgram;
-    Buffer                                          m_vertexBuffer;
-    Buffer                                          m_indexBuffer;
-    Buffer                                          m_neverChanges;
-    Buffer                                          m_changeOnResize;
-    Buffer                                          m_changeEveryFrame;
-    Texture											m_textureCubeImg;
-    SamplerState									m_samplerState;
-    Camera                                          m_camera;
-    XMMATRIX                                        m_modelMatrix;
-    XMMATRIX                                        m_View;
-    XMMATRIX                                        m_Projection;
-    XMFLOAT4                                        m_vMeshColor;
-    XMFLOAT3                                        position;  
-    XMFLOAT3                                        rotation;  
-    XMFLOAT3                                        scale;     
-    MeshComponent                                   m_meshComponent;
-    CBChangesEveryFrame                             cb;
-    CBNeverChanges                                  cbNeverChanges;
-    CBChangeOnResize                                cbChangesOnResize;
-    
-    bool keys[256] = { false };
-    float sensitivity = 0.01f;
-    bool mouseLeftDown = false; 
-    int lastX;
-    int lastY;  
-    
+public:
+    Window                                          m_window;               ///< Objeto de la ventana principal.
+    Device                                          m_device;               ///< Dispositivo de renderizado.
+    DeviceContext                                   m_deviceContext;        ///< Contexto del dispositivo.
+    SwapChain                                       m_swapchain;            ///< Cadena de intercambio para mostrar frames.
+    Texture                                         m_backBuffer;           ///< Textura del back buffer.
+    Texture                                         m_depthStencil;         ///< Textura del depth stencil.
+    RenderTargetView                                m_renderTargetView;     ///< Vista del render target.
+    DepthStencilView                                m_depthStencilView;     ///< Vista del depth stencil.
+    Viewport                                        m_viewport;             ///< Viewport de renderizado.
+    ShaderProgram                                   m_shaderProgram;        ///< Programa de shaders activo.
+    Buffer                                          m_vertexBuffer;         ///< Buffer de vértices.
+    Buffer                                          m_indexBuffer;          ///< Buffer de índices.
+    Buffer                                          m_neverChanges;         ///< Buffer de constantes que no cambian.
+    Buffer                                          m_changeOnResize;       ///< Buffer que cambia al redimensionar.
+    Buffer                                          m_changeEveryFrame;     ///< Buffer que cambia cada frame.
+    Texture											m_textureCubeImg;       ///< Textura de tipo cubemap.
+    SamplerState									m_samplerState;         ///< Estado del sampler para texturas.
+    Camera                                          m_camera;               ///< Cámara principal.
+    UserInterface                                   m_UI;                   ///< Interfaz de usuario.
+    XMMATRIX                                        m_modelMatrix;          ///< Matriz del modelo.
+    XMMATRIX                                        m_View;                 ///< Matriz de vista.
+    XMMATRIX                                        m_Projection;           ///< Matriz de proyección.
+    XMFLOAT4                                        m_vMeshColor;           ///< Color del mesh.
+    XMFLOAT3                                        position;               ///< Posición del objeto.
+    XMFLOAT3                                        rotation;               ///< Rotación del objeto.
+    XMFLOAT3                                        scale;                  ///< Escala del objeto.
+    MeshComponent                                   m_meshComponent;        ///< Componente de mesh utilizado.
+    CBChangesEveryFrame                             cb;                     ///< Constantes que cambian cada frame.
+    CBNeverChanges                                  cbNeverChanges;         ///< Constantes que nunca cambian.
+    CBChangeOnResize                                cbChangesOnResize;      ///< Constantes que cambian al redimensionar.
+
+    bool keys[256] = { false };                     ///< Estado de las teclas del teclado.
+    float sensitivity = 0.01f;                      ///< Sensibilidad para rotación de cámara.
+    bool mouseLeftDown = false;                     ///< Estado del botón izquierdo del mouse.
+    bool mouseRightDown = false;                    ///< Estado del botón derecho del mouse.
+    int lastX;                                      ///< Última posición X del mouse.
+    int lastY;                                      ///< Última posición Y del mouse.
 };

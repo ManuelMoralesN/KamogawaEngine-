@@ -18,6 +18,15 @@
     <Filter Include="Include">
       <UniqueIdentifier>{87cb663c-792e-4e0d-a711-272770f7a727}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Imgui">
+      <UniqueIdentifier>{5f6dba0b-f389-486c-acc8-d6925c7abf92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Imgui\Include">
+      <UniqueIdentifier>{d461d202-139c-463d-aab3-0f05ba1fe473}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Imgui\Source">
+      <UniqueIdentifier>{b754f9c8-6743-4051-8637-ef21970866dd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Prerequisites.h">
@@ -68,6 +77,51 @@
     <ClInclude Include="Include\SamplerState.h">
       <Filter>Include</Filter>
     </ClInclude>
+    <ClInclude Include="Include\UserInterface.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\Include\imconfig.h">
+      <Filter>Imgui\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\Include\imgui.h">
+      <Filter>Imgui\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\Include\imgui_internal.h">
+      <Filter>Imgui\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\Include\imstb_rectpack.h">
+      <Filter>Imgui\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\Include\imstb_textedit.h">
+      <Filter>Imgui\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\Include\imstb_truetype.h">
+      <Filter>Imgui\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\Source\imgui_impl_dx11.h">
+      <Filter>Imgui\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\Source\imgui_impl_win32.h">
+      <Filter>Imgui\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\Include\ImGuizmo.h">
+      <Filter>Imgui\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ImGuizmo-master\ImGuizmo-master\GraphEditor.h">
+      <Filter>Imgui\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ImGuizmo-master\ImGuizmo-master\ImCurveEdit.h">
+      <Filter>Imgui\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ImGuizmo-master\ImGuizmo-master\ImGradient.h">
+      <Filter>Imgui\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ImGuizmo-master\ImGuizmo-master\ImSequencer.h">
+      <Filter>Imgui\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ImGuizmo-master\ImGuizmo-master\ImZoomSlider.h">
+      <Filter>Imgui\Include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="KamogawaEngine-.cpp" />
@@ -109,6 +163,45 @@
     </ClCompile>
     <ClCompile Include="Source\SamplerState.cpp">
       <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\UserInterface.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Imgui\Source\imgui.cpp">
+      <Filter>Imgui\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Imgui\Source\imgui_demo.cpp">
+      <Filter>Imgui\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Imgui\Source\imgui_draw.cpp">
+      <Filter>Imgui\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Imgui\Source\imgui_impl_dx11.cpp">
+      <Filter>Imgui\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Imgui\Source\imgui_impl_win32.cpp">
+      <Filter>Imgui\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Imgui\Source\imgui_tables.cpp">
+      <Filter>Imgui\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Imgui\Source\imgui_widgets.cpp">
+      <Filter>Imgui\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Imgui\Source\ImGuizmo.cpp">
+      <Filter>Imgui\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ImGuizmo-master\ImGuizmo-master\GraphEditor.cpp">
+      <Filter>Imgui\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ImGuizmo-master\ImGuizmo-master\ImCurveEdit.cpp">
+      <Filter>Imgui\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ImGuizmo-master\ImGuizmo-master\ImGradient.cpp">
+      <Filter>Imgui\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ImGuizmo-master\ImGuizmo-master\ImSequencer.cpp">
+      <Filter>Imgui\Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

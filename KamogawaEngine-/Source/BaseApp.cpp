@@ -186,12 +186,17 @@ BaseApp::init() {
 	XMVECTOR At = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
 	XMVECTOR Up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
 	m_View = XMMatrixLookAtLH(Eye, At, Up);
+	
+	//IMGUI
+	m_UI.init(m_window.m_hWnd, m_device.m_device, m_deviceContext.m_deviceContext);
+	return hr;
 
 	return S_OK;
 }
 
 void
 BaseApp::update() {
+
 	// Actualizar tiempo y rotación
 	static float t = 0.0f;
 	if (m_swapchain.m_driverType == D3D_DRIVER_TYPE_REFERENCE) {
@@ -207,13 +212,13 @@ BaseApp::update() {
 	InputActionMap(0.016f);
 	rotation.y = t;
 
-	// Actualizar la rotación del objeto y el color
-	XMMATRIX scaleMatrix = XMMatrixScaling(scale.x, scale.y, scale.z);
-	XMMATRIX rotationMatrix = XMMatrixRotationRollPitchYaw(rotation.x, rotation.y, rotation.z);
-	XMMATRIX traslationMatrix = XMMatrixTranslation(position.x, position.y, position.z);
-
-	// Componer la matriz final en el orden: scale -> rotation -> translation
-	m_modelMatrix = scaleMatrix * rotationMatrix * traslationMatrix;
+	// Actualizar la rotación del objeto y el colo
+		XMMATRIX scaleMatrix = XMMatrixScaling(scale.x, scale.y, scale.z);
+		XMMATRIX rotationMatrix = XMMatrixRotationRollPitchYaw(rotation.x, rotation.y, rotation.z);
+		XMMATRIX traslationMatrix = XMMatrixTranslation(position.x, position.y, position.z);
+		
+		// Componer la matriz final en el orden: scale -> rotation -> translation
+		m_modelMatrix = scaleMatrix * rotationMatrix * traslationMatrix;
 	// Actualizar la rotación del objeto y el color
 	cb.mWorld = XMMatrixTranspose(m_modelMatrix);
 	m_vMeshColor = XMFLOAT4(
@@ -274,6 +279,9 @@ BaseApp::render() {
 
 	// Dibujar
 	m_deviceContext.DrawIndexed(m_meshComponent.m_index.size(), 0, 0);
+	
+	//IMGUI
+	m_UI.render(position, rotation, scale, m_modelMatrix, m_View, m_Projection);
 
 	// Presentar el frame en pantalla
 	m_swapchain.present();
@@ -282,7 +290,7 @@ BaseApp::render() {
 void
 BaseApp::destroy() {
 	if (m_deviceContext.m_deviceContext) m_deviceContext.m_deviceContext->ClearState();
-
+	m_UI.destroy(); // Liberar ImGui antes de destruir DirectX
 	m_samplerState.destroy();
 
 	m_textureCubeImg.destroy();
