@@ -27,6 +27,30 @@
     <Filter Include="Imgui\Source">
       <UniqueIdentifier>{b754f9c8-6743-4051-8637-ef21970866dd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Include\Utilities">
+      <UniqueIdentifier>{19064de9-a241-4c82-a302-e03c6b1462cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ECS">
+      <UniqueIdentifier>{57a49df4-e177-4180-b6f3-2eae5b87157e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Utilities\Matrix">
+      <UniqueIdentifier>{0bfd3a29-1d7e-422c-83c8-6fd529db2d57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Utilities\Memory">
+      <UniqueIdentifier>{dc929a72-aaa7-47c9-9e32-99f2f1816e96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Utilities\Vectors">
+      <UniqueIdentifier>{a259144d-67f7-43fd-a117-61228e1a777e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Utilities\Structures">
+      <UniqueIdentifier>{9a3cfec6-3807-4665-8c7a-d98de01a191b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ECS">
+      <UniqueIdentifier>{6c1a5f51-4577-4983-87f0-f259c9da6cc9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Utilities\Utilities">
+      <UniqueIdentifier>{c749a7d8-95fb-4053-aa12-081942fc2dac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Prerequisites.h">
@@ -122,6 +146,69 @@
     <ClInclude Include="..\ImGuizmo-master\ImGuizmo-master\ImZoomSlider.h">
       <Filter>Imgui\Include</Filter>
     </ClInclude>
+    <ClInclude Include="Include\ModelLoader.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Utilities\Matrix\Matrix2x2.h">
+      <Filter>Include\Utilities\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Utilities\Matrix\Matrix3x3.h">
+      <Filter>Include\Utilities\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Utilities\Matrix\Matrix4x4.h">
+      <Filter>Include\Utilities\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Utilities\Memory\TSharedPointer.h">
+      <Filter>Include\Utilities\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Utilities\Memory\TStaticPtr.h">
+      <Filter>Include\Utilities\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Utilities\Memory\TUniquePtr.h">
+      <Filter>Include\Utilities\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Utilities\Memory\TWeakPointer.h">
+      <Filter>Include\Utilities\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Utilities\Structures\TArray.h">
+      <Filter>Include\Utilities\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Utilities\Structures\TMap.h">
+      <Filter>Include\Utilities\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Utilities\Structures\TPair.h">
+      <Filter>Include\Utilities\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Utilities\Structures\TSet.h">
+      <Filter>Include\Utilities\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Utilities\Vectors\Quaternion.h">
+      <Filter>Include\Utilities\Vectors</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Utilities\Vectors\Vector2.h">
+      <Filter>Include\Utilities\Vectors</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Utilities\Vectors\Vector3.h">
+      <Filter>Include\Utilities\Vectors</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Utilities\Vectors\Vector4.h">
+      <Filter>Include\Utilities\Vectors</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\ECS\Entity.h">
+      <Filter>Include\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\ECS\Component.h">
+      <Filter>Include\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\ECS\Actor.h">
+      <Filter>Include\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\ECS\Transform.h">
+      <Filter>Include\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Utilities\Utilities\EngineMath.h">
+      <Filter>Include\Utilities\Utilities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="KamogawaEngine-.cpp" />
@@ -202,6 +289,15 @@
     </ClCompile>
     <ClCompile Include="..\ImGuizmo-master\ImGuizmo-master\ImSequencer.cpp">
       <Filter>Imgui\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ModelLoader.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ECS\Actor.cpp">
+      <Filter>Source\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ECS\Transform.cpp">
+      <Filter>Source\ECS</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

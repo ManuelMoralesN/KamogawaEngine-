@@ -5,6 +5,7 @@
 #include "imgui_impl_dx11.h"
 #include <imgui_internal.h>
 #include "ImGuizmo.h"
+#include "ECS/Transform.h"
 
 
 /**
@@ -46,7 +47,7 @@ public:
 	 * @param projectionMatrix Matriz de proyección.
 	 */
 	void
-	render(XMFLOAT3& position, XMFLOAT3& rotation, XMFLOAT3& scale, XMMATRIX& modelMatrix, XMMATRIX& viewMatrix, XMMATRIX& projectionMatrix);
+	render(Transform& transform);
 
 	/**
 	 * @brief Libera todos los recursos asociados a ImGui.

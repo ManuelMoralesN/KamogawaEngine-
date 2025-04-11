@@ -1,4 +1,8 @@
 #include "UserInterface.h"
+#include "Window.h"
+#include "Device.h"
+#include "DeviceContext.h"
+#include "BaseApp.h"
 
 void 
 UserInterface::init(void* window, 
@@ -24,20 +28,28 @@ UserInterface::update(){
 }
 
 void 
-UserInterface::render(XMFLOAT3& position, XMFLOAT3& rotation, XMFLOAT3& scale, XMMATRIX& modelMatrix, XMMATRIX& viewMatrix, XMMATRIX& projectionMatrix){
+UserInterface::render(Transform& transform){
     ImGui_ImplDX11_NewFrame();
     ImGui_ImplWin32_NewFrame();
     ImGui::NewFrame();
 
     ImGui::Begin("Inspector", nullptr, ImGuiWindowFlags_NoCollapse);
     ImGui::Text("Muevele pa:");
+    ImGui::Separator();
 
+    // Obtener copias
+    EngineUtilities::Vector3 position = transform.getPosition();
+    EngineUtilities::Vector3 rotation = transform.getRotation();
+    EngineUtilities::Vector3 scale = transform.getScale();
+
+    // Editar con ImGui
+    if (ImGui::DragFloat3("Position", &position.x, 0.1f)) transform.setPosition(position);
     ImGui::Separator();
-    vec3Control("Position", &position.x, 0.0f);
+
+    if (ImGui::DragFloat3("Rotation", &rotation.x, 0.1f)) transform.setRotation(rotation);
     ImGui::Separator();
-    vec3Control("Rotation", &rotation.x, 0.0f);
-    ImGui::Separator();
-    vec3Control("Scale", &scale.x, 1.0f);
+
+    if (ImGui::DragFloat3("Scale", &scale.x, 0.1f)) transform.setScale(scale);
     ImGui::Separator();
 
     ImGui::End();

@@ -16,6 +16,12 @@
 #include "Resource.h"
 #include "resource.h"
 
+// Third Parties
+#include "Utilities\Memory\TSharedPointer.h"
+#include "Utilities\Memory\TWeakPointer.h"
+#include "Utilities\Memory\TStaticPtr.h"
+#include "Utilities\Memory\TUniquePtr.h"
+
 /**
  * Macro para liberar recursos de DirectX de forma segura.
  * Evita fugas de memoria al asegurarse de liberar los recursos antes de establecerlos en nullptr.
@@ -100,6 +106,19 @@
         VERTEX_SHADER = 0,
         PIXEL_SHADER = 1
     };
+
+    /**
+ * @enum ComponentType
+ * @brief Tipos de componentes disponibles en el juego.
+ */
+    enum
+        ComponentType {
+        NONE = 0,     ///< Tipo de componente no especificado.
+        TRANSFORM = 1,///< Componente de transformación.
+        MESH = 2,     ///< Componente de malla.
+        MATERIAL = 3  ///< Componente de material.
+    };
+
 
     struct Camera {
         XMFLOAT3 position; //Posicion de la camara

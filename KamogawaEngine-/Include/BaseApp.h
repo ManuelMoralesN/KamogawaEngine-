@@ -13,6 +13,8 @@
 #include "MeshComponent.h"
 #include "SamplerState.h"
 #include "UserInterface.h"
+#include "ModelLoader.h"
+#include "ECS/Actor.h"
 
 /**
  * @brief Clase principal base para una aplicación gráfica.
@@ -105,24 +107,34 @@ public:
     DepthStencilView                                m_depthStencilView;     ///< Vista del depth stencil.
     Viewport                                        m_viewport;             ///< Viewport de renderizado.
     ShaderProgram                                   m_shaderProgram;        ///< Programa de shaders activo.
-    Buffer                                          m_vertexBuffer;         ///< Buffer de vértices.
-    Buffer                                          m_indexBuffer;          ///< Buffer de índices.
+    /*Buffer                                          m_vertexBuffer;         ///< Buffer de vértices.
+    Buffer                                          m_indexBuffer;     */     ///< Buffer de índices.
     Buffer                                          m_neverChanges;         ///< Buffer de constantes que no cambian.
     Buffer                                          m_changeOnResize;       ///< Buffer que cambia al redimensionar.
     Buffer                                          m_changeEveryFrame;     ///< Buffer que cambia cada frame.
-    Texture											m_textureCubeImg;       ///< Textura de tipo cubemap.
-    SamplerState									m_samplerState;         ///< Estado del sampler para texturas.
+    /*Texture											m_textureCubeImg;       ///< Textura de tipo cubemap.
+    SamplerState									m_samplerState;         ///< Estado del sampler para texturas.*/
     Camera                                          m_camera;               ///< Cámara principal.
     UserInterface                                   m_UI;                   ///< Interfaz de usuario.
-    XMMATRIX                                        m_modelMatrix;          ///< Matriz del modelo.
+   
+    ModelLoader                                     m_model;
+    EngineUtilities::TSharedPointer<Actor>          AModel;
+    std::vector<Texture>                            m_modelTextures;
+
+    ModelLoader                                     m_model2;
+    EngineUtilities::TSharedPointer<Actor>          AModel2;
+    std::vector<Texture>                            m_modelTextures2;
+
+    Texture                                         m_default;
+    /*XMMATRIX                                        m_modelMatrix;          ///< Matriz del modelo.*/
     XMMATRIX                                        m_View;                 ///< Matriz de vista.
     XMMATRIX                                        m_Projection;           ///< Matriz de proyección.
     XMFLOAT4                                        m_vMeshColor;           ///< Color del mesh.
-    XMFLOAT3                                        position;               ///< Posición del objeto.
+   /* XMFLOAT3                                        position;               ///< Posición del objeto.
     XMFLOAT3                                        rotation;               ///< Rotación del objeto.
-    XMFLOAT3                                        scale;                  ///< Escala del objeto.
-    MeshComponent                                   m_meshComponent;        ///< Componente de mesh utilizado.
-    CBChangesEveryFrame                             cb;                     ///< Constantes que cambian cada frame.
+    XMFLOAT3                                        scale;                  ///< Escala del objeto.*/
+   /* MeshComponent                                   m_meshComponent;        ///< Componente de mesh utilizado.*/
+    /*CBChangesEveryFrame                             cb;                     ///< Constantes que cambian cada frame.*/
     CBNeverChanges                                  cbNeverChanges;         ///< Constantes que nunca cambian.
     CBChangeOnResize                                cbChangesOnResize;      ///< Constantes que cambian al redimensionar.
 
