@@ -6,6 +6,7 @@
 #include <imgui_internal.h>
 #include "ImGuizmo.h"
 #include "ECS/Transform.h"
+#include "ECS/Actor.h"
 
 
 /**
@@ -47,13 +48,14 @@ public:
 	 * @param projectionMatrix Matriz de proyección.
 	 */
 	void
-	render(Transform& transform);
+	render(std::vector<EngineUtilities::TSharedPointer<Actor>>& actors);
 
 	/**
 	 * @brief Libera todos los recursos asociados a ImGui.
 	 */
 	void
 	destroy();
+
 
 	/**
 	 * @brief Crea un control personalizado para editar un vector3 (X, Y, Z) con ImGui.
@@ -70,4 +72,5 @@ public:
 
 private:
 	ImGuizmo::OPERATION mode = ImGuizmo::TRANSLATE; ///< Modo actual de manipulación (traslación, rotación o escala).
+	int selectedActorIndex = 0; ///< Índice del actor seleccionado
 };

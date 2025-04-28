@@ -23,34 +23,40 @@ UserInterface::init(void* window,
 }
 
 void 
-UserInterface::update(){
+UserInterface::update() {
 
 }
 
-void 
-UserInterface::render(Transform& transform){
+void UserInterface::render(std::vector<EngineUtilities::TSharedPointer<Actor>>& actors) {
+    
     ImGui_ImplDX11_NewFrame();
     ImGui_ImplWin32_NewFrame();
     ImGui::NewFrame();
 
     ImGui::Begin("Inspector", nullptr, ImGuiWindowFlags_NoCollapse);
-    ImGui::Text("Muevele pa:");
+    
+    ImGui::Text("Selecciona un Actor:");
+    const char* actorNames[] = { "Invencible", "Mordecai", "Mario" };
+	ImGui::Combo("Actor", &this->selectedActorIndex, actorNames, IM_ARRAYSIZE(actorNames)); //Combo para seleccionar el actor 
     ImGui::Separator();
+    
+	if (this->selectedActorIndex >= 0 && this->selectedActorIndex < actors.size() && !actors[this->selectedActorIndex].isNull()) { // Verifica si el actor es válido
+		Transform* transform = actors[this->selectedActorIndex]->getComponent<Transform>().get(); // Obtiene el componente Transform del actor seleccionado
+        if (transform) {
+            EngineUtilities::Vector3 position = transform->getPosition();
+            EngineUtilities::Vector3 rotation = transform->getRotation();
+            EngineUtilities::Vector3 scale = transform->getScale();
 
-    // Obtener copias
-    EngineUtilities::Vector3 position = transform.getPosition();
-    EngineUtilities::Vector3 rotation = transform.getRotation();
-    EngineUtilities::Vector3 scale = transform.getScale();
+            if (ImGui::DragFloat3("Position", &position.x, 0.1f)) transform->setPosition(position);
+            ImGui::Separator();
 
-    // Editar con ImGui
-    if (ImGui::DragFloat3("Position", &position.x, 0.1f)) transform.setPosition(position);
-    ImGui::Separator();
+            if (ImGui::DragFloat3("Rotation", &rotation.x, 0.1f)) transform->setRotation(rotation);
+            ImGui::Separator();
 
-    if (ImGui::DragFloat3("Rotation", &rotation.x, 0.1f)) transform.setRotation(rotation);
-    ImGui::Separator();
-
-    if (ImGui::DragFloat3("Scale", &scale.x, 0.1f)) transform.setScale(scale);
-    ImGui::Separator();
+            if (ImGui::DragFloat3("Scale", &scale.x, 0.1f)) transform->setScale(scale);
+            ImGui::Separator();
+        }
+    }
 
     ImGui::End();
 
@@ -59,7 +65,7 @@ UserInterface::render(Transform& transform){
 }
 
 void 
-UserInterface::destroy(){
+UserInterface::destroy() {
     ImGui_ImplDX11_Shutdown();
     ImGui_ImplWin32_Shutdown();
     ImGui::DestroyContext();
@@ -69,7 +75,7 @@ void
 UserInterface::vec3Control(std::string label, 
 				   float* values, 
 				   float resetValues, 
-				   float columnWidth){
+				   float columnWidth) {
     ImGui::PushID(label.c_str());
 
     ImGui::Columns(2);

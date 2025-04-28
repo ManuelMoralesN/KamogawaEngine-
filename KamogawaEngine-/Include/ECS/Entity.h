@@ -1,31 +1,34 @@
 #pragma once
 #include "Prerequisites.h"
 #include "Component.h"
+
 class DeviceContext;
 
 class
-    Entity {
+Entity {
 public:
     /**
      * @brief Destructor virtual.
      */
     virtual
-        ~Entity() = default;
+    ~Entity() = default;
 
     /**
      * @brief Método virtual puro para actualizar la entidad.
      * @param deltaTime El tiempo transcurrido desde la última actualización.
      * @param deviceContext Contexto del dispositivo para operaciones gráficas.
      */
-    virtual void
-        update(float deltaTime, DeviceContext& deviceContext) = 0;
+    virtual 
+    void
+    update(float deltaTime, DeviceContext& deviceContext) = 0;
 
     /**
      * @brief Método virtual puro para renderizar la entidad.
      * @param deviceContext Contexto del dispositivo para operaciones gráficas.
      */
-    virtual void
-        render(DeviceContext& deviceContext) = 0;
+    virtual 
+    void
+    render(DeviceContext& deviceContext) = 0;
 
     /**
      * @brief Agrega un componente a la entidad.
@@ -58,7 +61,6 @@ public:
 
 protected:
     bool m_isActive;
-
     int m_id;
 
     std::vector<EngineUtilities::TSharedPointer<Component>> m_components;

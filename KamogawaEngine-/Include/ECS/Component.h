@@ -1,4 +1,5 @@
 #pragma once
+
 class DeviceContext;
 
 
@@ -10,7 +11,7 @@ class DeviceContext;
  * permitiendo actualizar y renderizar el componente, así como obtener su tipo.
  */
 class
-    Component {
+Component {
 public:
     /**
      * @brief Constructor por defecto.
@@ -27,21 +28,23 @@ public:
      * @brief Destructor virtual.
      */
     virtual
-        ~Component() = default;
+    ~Component() = default;
 
     /**
      * @brief Método virtual puro para actualizar el componente.
      * @param deltaTime El tiempo transcurrido desde la última actualización.
      */
-    virtual void
-        update(float deltaTime) = 0;
+    virtual 
+    void
+    update(float deltaTime) = 0;
 
     /**
      * @brief Método virtual puro para renderizar el componente.
      * @param deviceContext Contexto del dispositivo para operaciones gráficas.
      */
-    virtual void
-        render(DeviceContext& deviceContext) = 0;
+    virtual 
+    void
+    render(DeviceContext& deviceContext) = 0;
 
     /**
      * @brief Obtiene el tipo del componente.

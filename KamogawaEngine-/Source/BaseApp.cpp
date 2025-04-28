@@ -272,10 +272,9 @@ BaseApp::render() {
 	m_neverChanges.render(m_deviceContext, 0, 1);
 	m_changeOnResize.render(m_deviceContext, 1, 1);
 
-	if (!AModel.isNull()) {
-		auto transform = AModel->getComponent<Transform>();
-		m_UI.render(*transform);
-	}
+	// Renderizar el modelo 
+	std::vector<EngineUtilities::TSharedPointer<Actor>> actors = { AModel, AModel2, AModelOBJ }; 
+	m_UI.render(actors); 
 
 	// Presentar el frame en pantalla
 	m_swapchain.present();

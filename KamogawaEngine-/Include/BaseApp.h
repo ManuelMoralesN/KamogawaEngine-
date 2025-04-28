@@ -115,19 +115,19 @@ public:
     Camera                                          m_camera;               ///< Cámara principal.
     UserInterface                                   m_UI;                   ///< Interfaz de usuario.
    
-    ModelLoader                                     m_model;
-    EngineUtilities::TSharedPointer<Actor>          AModel;
+	ModelLoader                                     m_model;                ///< Cargador de modelos fbx.
+    EngineUtilities::TSharedPointer<Actor>          AModel;                       
     std::vector<Texture>                            m_modelTextures;
 
-    ModelLoader                                     m_model2;
+	ModelLoader                                     m_model2;               ///< Cargador de modelos fbx.
     EngineUtilities::TSharedPointer<Actor>          AModel2;
     std::vector<Texture>                            m_modelTextures2;
 
-    ModelLoader                                     m_modelOBJ;
+    ModelLoader                                     m_modelOBJ;             ///< Cargador de modelos obj.
     EngineUtilities::TSharedPointer<Actor>          AModelOBJ;
     std::vector<Texture>                            m_modelTexturesOBJ;
 
-    Texture                                         m_default;
+	Texture                                         m_default;  	        ///< Textura por defecto.
  
     XMMATRIX                                        m_View;                 ///< Matriz de vista.
     XMMATRIX                                        m_Projection;           ///< Matriz de proyección.

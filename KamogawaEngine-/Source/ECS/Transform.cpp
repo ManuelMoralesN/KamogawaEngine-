@@ -3,7 +3,7 @@
 
 void 
 Transform::init(){
-	scale.one();
+	scale.one(); // inicializa la escala a 1
 
 	matrix = XMMatrixIdentity();
 }

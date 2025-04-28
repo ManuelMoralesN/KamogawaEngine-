@@ -181,34 +181,34 @@ ModelLoader::ProcessFBXMaterials(FbxSurfaceMaterial* material) {
 }
 
 bool 
-ModelLoader::LoadOBJModel(const std::string& filePath){
-	objl::Loader loader;
-	bool result = loader.LoadFile(filePath);
+ModelLoader::LoadOBJModel(const std::string& filePath) {
+	objl::Loader loader; // Load the OBJ file using objl::Loader
+	bool result = loader.LoadFile(filePath);// Load the OBJ file
 	if (!result) {
 		ERROR("ModelLoader", "LoadOBJModel", ("Failed to load OBJ file: " + filePath).c_str());
 		return false;
 	}
-
+	// 01. Process the loaded OBJ file
 	for (const auto& mesh : loader.LoadedMeshes) {
 		std::vector<SimpleVertex> vertices;
 		std::vector<unsigned int> indices;
-
+		// 02. Process vertices: extract positions and texture coordinates
 		for (const auto& vertex : mesh.Vertices) {
 			SimpleVertex v;
 			v.Pos = XMFLOAT3(vertex.Position.X, vertex.Position.Y, vertex.Position.Z);
 			v.Tex = XMFLOAT2(vertex.TextureCoordinate.X, 1.0f - vertex.TextureCoordinate.Y); // Flip Y
 			vertices.push_back(v);
 		}
-
+		// 03. Process indices: extract indices from the mesh
 		indices = mesh.Indices;
-		
+		// 04. Create a MeshComponent to store the processed mesh data 
 		MeshComponent meshData;
 		meshData.m_name = mesh.MeshName;
 		meshData.m_vertex = vertices;
 		meshData.m_index = indices;
 		meshData.m_numVertex = vertices.size();
 		meshData.m_numIndex = indices.size();
-
+		// 05. Add the processed mesh data to the collection 
 		meshes.push_back(meshData);
 	}
 
