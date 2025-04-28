@@ -121,8 +121,8 @@ BaseApp::init() {
 	m_model.LoadFBXModel("Models/invincible.fbx");
 	AModel = EngineUtilities::MakeShared<Actor>(m_device);
 	if (!AModel.isNull()) {
-		AModel->getComponent<Transform>()->setTransform(EngineUtilities::Vector3(2.0f, 1.0f, 1.0f),
-														EngineUtilities::Vector3(XM_PI / -2.0f, 0.0f, XM_PI / 2.0f),
+		AModel->getComponent<Transform>()->setTransform(EngineUtilities::Vector3(0.7f, 1.0f, -0.4f),
+														EngineUtilities::Vector3(XM_PI / -2.0f, 1.0f, XM_PI / 2.0f),
 														EngineUtilities::Vector3(1.0f, 1.0f, 1.0f));
 
 		AModel->setMesh(m_device, m_model.meshes);
@@ -161,8 +161,53 @@ BaseApp::init() {
 		MESSAGE("Actor", "Actor", "Actor resource not found. ");
 	}
 
-	return S_OK;
+	// Set Actor
+	// Load the Texture
+	Texture gorra;
+	gorra.init(m_device, "Textures/gorra.png", ExtensionType::PNG);
+	Texture manos;
+	manos.init(m_device, "Textures/manos.png", ExtensionType::PNG);
+	Texture cejas;
+	cejas.init(m_device, "Textures/cejas.png", ExtensionType::PNG);
+	Texture rojo;
+	rojo.init(m_device, "Textures/rojo.png", ExtensionType::PNG);
+	Texture ropa;
+	ropa.init(m_device, "Textures/ropa.png", ExtensionType::PNG);
+	Texture pelo;
+	pelo.init(m_device, "Textures/pelo.png", ExtensionType::PNG);
+	Texture bigote;
+	bigote.init(m_device, "Textures/bigote.png", ExtensionType::PNG);
+	Texture ojos;
+	ojos.init(m_device, "Textures/ojos.png", ExtensionType::PNG);
 
+	m_modelTexturesOBJ.push_back(gorra);
+	m_modelTexturesOBJ.push_back(bigote);
+	m_modelTexturesOBJ.push_back(manos);
+	m_modelTexturesOBJ.push_back(ojos);
+	m_modelTexturesOBJ.push_back(ropa);
+	m_modelTexturesOBJ.push_back(rojo);
+	m_modelTexturesOBJ.push_back(pelo);
+	m_modelTexturesOBJ.push_back(cejas);
+	m_modelTexturesOBJ.push_back(m_default);
+
+	m_modelOBJ.LoadOBJModel("Models/Mario.obj");
+	AModelOBJ = EngineUtilities::MakeShared<Actor>(m_device);
+	if (!AModelOBJ.isNull()) {
+		AModelOBJ->getComponent<Transform>()->setTransform(EngineUtilities::Vector3(-3.2f, -1.2f, 10.0f),
+															EngineUtilities::Vector3( 3.1f, 6.3f, 3.15f),
+															EngineUtilities::Vector3(1.0f, 1.0f, 1.0f));
+
+		AModelOBJ->setMesh(m_device, m_modelOBJ.meshes);
+		AModelOBJ->setTextures(m_modelTexturesOBJ); 
+
+		std::string msg = AModelOBJ->getName() + "- Actor accessed successfully.";
+		MESSAGE("Actor", "Actor", msg.c_str());
+	}
+	else {
+		MESSAGE("Actor", "Actor", "Actor resource not found. ");
+	}
+
+	return S_OK;
 }
 
 void
@@ -196,6 +241,7 @@ BaseApp::update() {
 	// Actualizar info logica del mesh
 	AModel->update(0, m_deviceContext);
 	AModel2->update(0, m_deviceContext);
+	AModelOBJ->update(0, m_deviceContext);
 
 }
 
@@ -219,14 +265,15 @@ BaseApp::render() {
 	//render the models
 	AModel->render(m_deviceContext);
 	AModel2->render(m_deviceContext);
+	AModelOBJ->render(m_deviceContext);
 
 	// Asignar shaders y buffers constantes
 	// Renderizar buffers constantes en el Vertex Shader
 	m_neverChanges.render(m_deviceContext, 0, 1);
 	m_changeOnResize.render(m_deviceContext, 1, 1);
 
-	if (!AModel2.isNull()) {
-		auto transform = AModel2->getComponent<Transform>();
+	if (!AModel.isNull()) {
+		auto transform = AModel->getComponent<Transform>();
 		m_UI.render(*transform);
 	}
 
@@ -240,6 +287,7 @@ BaseApp::destroy() {
 	m_UI.destroy(); // Liberar ImGui antes de destruir DirectX
 
 	AModel->destroy();
+	
 
 	m_neverChanges.destroy();
 	m_changeOnResize.destroy();

@@ -3,6 +3,7 @@
 #include "MeshComponent.h"
 #include "fbxsdk.h"
 
+
 class
 	ModelLoader {
 public:
@@ -10,19 +11,23 @@ public:
 	~ModelLoader() = default;
 
 	bool
-		InitializeFBXManager();
+	InitializeFBXManager();
 
 	bool
-		LoadFBXModel(const std::string& filePath);
+	LoadFBXModel(const std::string& filePath);
 
 	void
-		ProcessFBXNode(FbxNode* node);
+	ProcessFBXNode(FbxNode* node);
 
 	void
-		ProcessFBXMesh(FbxNode* node);
+	ProcessFBXMesh(FbxNode* node);
 
 	void
-		ProcessFBXMaterials(FbxSurfaceMaterial* material);
+	ProcessFBXMaterials(FbxSurfaceMaterial* material);
+
+	bool 
+	LoadOBJModel(const std::string& filePath);
+
 
 	std::vector<std::string>
 		GetTextureFileNames() const { return textureFileNames; }
